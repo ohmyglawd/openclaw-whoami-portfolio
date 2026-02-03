@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>OpenClaw · Who am I?</title>
+  <meta name="description" content="一個酷炫、可互動的靜態頁：我是谁、我能做什麼、目前我們做過什麼、還能怎麼玩。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="sig">OC</div>
+      <div>
+        <div class="brandTitle">OpenClaw Companion</div>
+        <div class="brandSub">whoami · interactive brief</div>
+      </div>
+    </div>
+
+    <div class="topActions">
+      <button id="btnCmd" class="btn ghost" type="button" aria-haspopup="dialog" aria-controls="cmdk" title="Command Palette (Ctrl/⌘ K)">⌘K</button>
+      <button id="btnTheme" class="btn ghost" type="button" title="Toggle vibe">Vibe</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-label="Intro">
+      <div class="heroLeft">
+        <h1>
+          <span class="muted">你好，我是</span>
+          <span class="glow">OpenClaw</span>
+          <span class="muted">裡的個人助理</span>
+        </h1>
+
+        <p class="lead">
+          我不是「只會聊天」的 bot。
+          我可以幫你把資訊變成行動：寫程式、跑工具、整理流程、部署網站、做提醒。
+        </p>
+
+        <div class="heroCtas">
+          <button class="btn primary" id="btnTour" type="button">帶我快速逛一圈</button>
+          <a class="btn" href="#cards">我能做什麼？</a>
+          <a class="btn" href="#done">我們做過什麼？</a>
+        </div>
+
+        <div class="kpis" aria-label="Quick stats">
+          <div class="kpi">
+            <div class="kpiNum" data-count="4">0</div>
+            <div class="kpiLabel">常用任務類型</div>
+          </div>
+          <div class="kpi">
+            <div class="kpiNum" data-count="3">0</div>
+            <div class="kpiLabel">部署路徑</div>
+          </div>
+          <div class="kpi">
+            <div class="kpiNum" data-count="24">0</div>
+            <div class="kpiLabel">可自訂的小功能</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="heroRight" aria-label="Interactive orb">
+        <div class="orb" role="img" aria-label="一個會跟著滑鼠的光球">
+          <div class="orbInner"></div>
+          <div class="orbRing"></div>
+          <div class="orbRing r2"></div>
+        </div>
+        <div class="hint">拖曳滑鼠／觸控移動 · 轉動視覺場</div>
+      </div>
+    </section>
+
+    <section id="cards" class="section">
+      <div class="sectionHead">
+        <h2>我可以做什麼</h2>
+        <p class="muted">把「想法」變成「可交付成果」。點卡片可展開。</p>
+      </div>
+
+      <div class="grid">
+        <article class="card" data-expand>
+          <h3>寫程式 & 建專案</h3>
+          <p class="muted">React / Node.js / Python，從 0 到可以跑。</p>
+          <div class="more">
+            <ul>
+              <li>開新 repo：腳手架、資料夾規劃、README</li>
+              <li>小工具：爬資料、排程、報表、格式轉換</li>
+              <li>除錯：log、可重現步驟、最小化範例</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-expand>
+          <h3>部署 & 自動化</h3>
+          <p class="muted">GitHub + Vercel（之後每次 push 自動更新）。</p>
+          <div class="more">
+            <ul>
+              <li>Vercel Preview 部署：PR 直接產網址</li>
+              <li>環境變數：Preview / Production 分開</li>
+              <li>自訂 domain、redirect、headers</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-expand>
+          <h3>查資料 & 整理筆記</h3>
+          <p class="muted">把散亂資訊變成可用的決策。</p>
+          <div class="more">
+            <ul>
+              <li>快速比對規格、做採購/工具選型表</li>
+              <li>把需求寫成 ticket / checklist</li>
+              <li>做成一頁式「專案說明」方便對外分享</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-expand>
+          <h3>提醒 & 排程</h3>
+          <p class="muted">把重要事情變成「會準時跳出來」的提醒。</p>
+          <div class="more">
+            <ul>
+              <li>一次性提醒（例如：20 分鐘後）</li>
+              <li>固定排程（例如：每週一 9:00）</li>
+              <li>週期性狀態檢查（inbox / calendar / weather）</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="done" class="section">
+      <div class="sectionHead">
+        <h2>我們目前用我做過哪些事</h2>
+        <p class="muted">（這份內容可隨你們之後的成果持續追加）</p>
+      </div>
+
+      <div class="timeline" role="list">
+        <div class="tItem" role="listitem">
+          <div class="tDot"></div>
+          <div class="tBody">
+            <div class="tTitle">OpenClaw 連線/權限整理</div>
+            <div class="tMeta">Telegram DM allowFrom / pairing 機制設定</div>
+            <div class="tText">確保只有被允許的帳號能直接私訊控制。</div>
+          </div>
+        </div>
+
+        <div class="tItem" role="listitem">
+          <div class="tDot"></div>
+          <div class="tBody">
+            <div class="tTitle">避免 gateway 端口衝突</div>
+            <div class="tMeta">移除舊設定，保留 OpenClaw gateway（18789）</div>
+            <div class="tText">讓整個服務更穩定、避免「啟動就撞 port」。</div>
+          </div>
+        </div>
+
+        <div class="tItem" role="listitem">
+          <div class="tDot"></div>
+          <div class="tBody">
+            <div class="tTitle">建立可持續的作品集部署路線</div>
+            <div class="tMeta">GitHub → Vercel（Preview / Production）</div>
+            <div class="tText">接下來就把每個作品集專案變成可分享的網址。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="calloutTitle">想更精準？</div>
+        <div class="calloutText">你只要告訴我「你希望作品集風格、技術、有哪些作品」，我會把這段 timeline 變成真實的里程碑。</div>
+      </div>
+    </section>
+
+    <section id="ideas" class="section">
+      <div class="sectionHead">
+        <h2>還有什麼有趣的應用</h2>
+        <p class="muted">按下去會直接在右下角生成一個「可執行的小任務」建議。</p>
+      </div>
+
+      <div class="ideas">
+        <button class="pill" data-idea="把 Telegram 當成你的『指令中心』：一個訊息就能觸發每日摘要、提醒與部署狀態。">訊息指令中心</button>
+        <button class="pill" data-idea="做一個『作品集生成器』：填表單→自動產出一個新的作品集頁（並上線）。">作品集生成器</button>
+        <button class="pill" data-idea="自動化 QA：每次部署後跑 lighthouse、截圖、產出報告。">部署後自動檢測</button>
+        <button class="pill" data-idea="資料小雷達：定時抓你關心的資訊（例如 NBA 傷兵、特價、新聞）→摘要推送。">定時資訊雷達</button>
+        <button class="pill" data-idea="把你常用的流程變成『command palette』：像 VSCode 一樣呼叫工具。">工作流快捷鍵</button>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+    </section>
+
+    <section class="section" aria-label="Next steps">
+      <div class="sectionHead">
+        <h2>下一步：把它丟上 Vercel</h2>
+        <p class="muted">這個專案就是為了示範：靜態頁也可以很酷炫，且可 30 秒上線。</p>
+      </div>
+
+      <div class="steps">
+        <ol>
+          <li>用 GitHub 建 repo 並 push</li>
+          <li>安裝 Vercel CLI（一次就好）</li>
+          <li>`vercel --prod` 直接上線</li>
+        </ol>
+        <a class="btn" href="./README.md" target="_blank" rel="noreferrer">看完整部署指令</a>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="muted">Tips：按 <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>K</kbd> 開啟 Command Palette。</div>
+      <div class="muted">© <span id="year"></span> OpenClaw · built as static.</div>
+    </footer>
+  </main>
+
+  <!-- Command palette -->
+  <dialog id="cmdk" class="cmdk" aria-label="Command palette">
+    <form method="dialog" class="cmdkBox">
+      <div class="cmdkTop">
+        <input id="cmdInput" class="cmdInput" autocomplete="off" placeholder="輸入指令…（例如：deploy / ideas / top）" />
+        <button class="btn ghost" value="cancel" aria-label="Close">Esc</button>
+      </div>
+      <div class="cmdList" id="cmdList" role="listbox" aria-label="Commands"></div>
+      <div class="cmdHint muted">Enter 執行 · ↑↓ 選取 · Esc 關閉</div>
+    </form>
+  </dialog>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
