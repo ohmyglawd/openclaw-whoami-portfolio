@@ -4,6 +4,17 @@ const $$ = (q, el = document) => [...el.querySelectorAll(q)];
 // Year
 $('#year').textContent = new Date().getFullYear();
 
+// Reveal on scroll
+const revealEls = $$('[data-reveal]');
+const revealIO = new IntersectionObserver((entries) => {
+  for (const e of entries) {
+    if (!e.isIntersecting) continue;
+    e.target.classList.add('revealed');
+    revealIO.unobserve(e.target);
+  }
+}, { threshold: 0.14 });
+revealEls.forEach(el => revealIO.observe(el));
+
 // Expand cards
 $$('[data-expand]').forEach(card => {
   card.addEventListener('click', () => card.classList.toggle('expanded'));
@@ -14,6 +25,26 @@ $$('[data-expand]').forEach(card => {
     card.style.setProperty('--mx', mx + '%');
     card.style.setProperty('--my', my + '%');
   });
+});
+
+// Subtle tilt (cards/projects/kpis)
+const tiltEls = $$('[data-tilt]');
+const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
+const tilt = (el, e) => {
+  const r = el.getBoundingClientRect();
+  const px = (e.clientX - r.left) / r.width;
+  const py = (e.clientY - r.top) / r.height;
+  const ry = (px - 0.5) * 10;
+  const rx = (py - 0.5) * -8;
+  el.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+  el.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+  el.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+};
+const tiltReset = (el) => { el.style.transform = ''; };
+
+tiltEls.forEach(el => {
+  el.addEventListener('mousemove', (e) => tilt(el, e), { passive: true });
+  el.addEventListener('mouseleave', () => tiltReset(el));
 });
 
 // Count up
@@ -50,8 +81,8 @@ let pointer = { x: 0.5, y: 0.5 };
 const setPointer = (clientX, clientY) => {
   const w = window.innerWidth;
   const h = window.innerHeight;
-  pointer.x = Math.min(1, Math.max(0, clientX / w));
-  pointer.y = Math.min(1, Math.max(0, clientY / h));
+  pointer.x = clamp(clientX / w, 0, 1);
+  pointer.y = clamp(clientY / h, 0, 1);
 };
 
 window.addEventListener('mousemove', (e) => setPointer(e.clientX, e.clientY), { passive: true });
@@ -77,7 +108,7 @@ const showToast = (text) => {
   toast.textContent = text;
   toast.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3400);
 };
 
 $$('[data-idea]').forEach(btn => {
@@ -90,8 +121,8 @@ $$('[data-idea]').forEach(btn => {
 // Tour button
 $('#btnTour').addEventListener('click', async () => {
   const seq = [
-    ['#cards', '互動卡片：點一下展開，滑鼠移動會出光圈。'],
-    ['#done', 'Timeline：把我們做過的事，變成可交付的里程碑。'],
+    ['#cards', '互動卡片：點一下展開，移動會出光圈 + 3D 微傾斜。'],
+    ['#projects', 'Workspace：把專案做成可點、可讀、可部署的卡片。'],
     ['#ideas', '點 pills 生成可執行的小任務建議。'],
   ];
 
@@ -117,9 +148,9 @@ const cmdList = $('#cmdList');
 const COMMANDS = [
   { id: 'top', label: '回到頂部', key: 'top', run: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
   { id: 'capabilities', label: '跳到：我可以做什麼', key: 'capabilities', run: () => $('#cards')?.scrollIntoView({ behavior: 'smooth' }) },
-  { id: 'done', label: '跳到：我們做過什麼', key: 'done', run: () => $('#done')?.scrollIntoView({ behavior: 'smooth' }) },
+  { id: 'projects', label: '跳到：workspace 作品/產出', key: 'projects', run: () => $('#projects')?.scrollIntoView({ behavior: 'smooth' }) },
   { id: 'ideas', label: '跳到：有趣應用', key: 'ideas', run: () => $('#ideas')?.scrollIntoView({ behavior: 'smooth' }) },
-  { id: 'deploy', label: '顯示：部署指令提示', key: 'deploy', run: () => showToast('部署：npm i -g vercel → vercel → vercel --prod（或連 GitHub 自動部署）') },
+  { id: 'deploy', label: '顯示：部署指令提示', key: 'deploy', run: () => showToast('部署：git push → vercel（或連 GitHub 自動部署）／Production：vercel --prod') },
   { id: 'vibe', label: '切換：Vibe', key: 'vibe', run: () => $('#btnTheme').click() },
 ];
 
@@ -205,13 +236,13 @@ resize();
 
 const rnd = (a, b) => a + Math.random() * (b - a);
 
-const dots = Array.from({ length: 64 }, () => ({
+const dots = Array.from({ length: 72 }, () => ({
   x: rnd(0, 1),
   y: rnd(0, 1),
   vx: rnd(-0.00025, 0.00025),
   vy: rnd(-0.00018, 0.00018),
   r: rnd(1.2, 2.6),
-  hue: rnd(180, 300),
+  hue: rnd(180, 310),
 }));
 
 const draw = () => {

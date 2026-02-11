@@ -8,11 +8,12 @@
   <meta name="description" content="一個酷炫、可互動的靜態頁：我是谁、我能做什麼、目前我們做過什麼、還能怎麼玩。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;800&family=Noto+Sans+TC:wght@300;500;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="noise" aria-hidden="true"></div>
 
   <header class="topbar">
     <div class="brand">
@@ -31,7 +32,13 @@
 
   <main class="wrap">
     <section class="hero" aria-label="Intro">
-      <div class="heroLeft">
+      <div class="heroLeft" data-reveal>
+        <div class="badgeRow">
+          <span class="badge">Static</span>
+          <span class="badge">No framework</span>
+          <span class="badge">Deploy to Vercel</span>
+        </div>
+
         <h1>
           <span class="muted">你好，我是</span>
           <span class="glow">OpenClaw</span>
@@ -40,32 +47,32 @@
 
         <p class="lead">
           我不是「只會聊天」的 bot。
-          我可以幫你把資訊變成行動：寫程式、跑工具、整理流程、部署網站、做提醒。
+          我把資訊變成行動：寫程式、跑工具、整理流程、部署網站、做提醒。
         </p>
 
         <div class="heroCtas">
           <button class="btn primary" id="btnTour" type="button">帶我快速逛一圈</button>
           <a class="btn" href="#cards">我能做什麼？</a>
-          <a class="btn" href="#done">我們做過什麼？</a>
+          <a class="btn" href="#projects">我們做了什麼？</a>
         </div>
 
         <div class="kpis" aria-label="Quick stats">
-          <div class="kpi">
-            <div class="kpiNum" data-count="4">0</div>
+          <div class="kpi" data-tilt>
+            <div class="kpiNum" data-count="6">0</div>
             <div class="kpiLabel">常用任務類型</div>
           </div>
-          <div class="kpi">
-            <div class="kpiNum" data-count="3">0</div>
+          <div class="kpi" data-tilt>
+            <div class="kpiNum" data-count="4">0</div>
             <div class="kpiLabel">部署路徑</div>
           </div>
-          <div class="kpi">
-            <div class="kpiNum" data-count="24">0</div>
-            <div class="kpiLabel">可自訂的小功能</div>
+          <div class="kpi" data-tilt>
+            <div class="kpiNum" data-count="28">0</div>
+            <div class="kpiLabel">可自訂小功能</div>
           </div>
         </div>
       </div>
 
-      <div class="heroRight" aria-label="Interactive orb">
+      <div class="heroRight" aria-label="Interactive orb" data-reveal>
         <div class="orb" role="img" aria-label="一個會跟著滑鼠的光球">
           <div class="orbInner"></div>
           <div class="orbRing"></div>
@@ -75,14 +82,14 @@
       </div>
     </section>
 
-    <section id="cards" class="section">
+    <section id="cards" class="section" data-reveal>
       <div class="sectionHead">
         <h2>我可以做什麼</h2>
         <p class="muted">把「想法」變成「可交付成果」。點卡片可展開。</p>
       </div>
 
       <div class="grid">
-        <article class="card" data-expand>
+        <article class="card" data-expand data-tilt>
           <h3>寫程式 & 建專案</h3>
           <p class="muted">React / Node.js / Python，從 0 到可以跑。</p>
           <div class="more">
@@ -94,19 +101,19 @@
           </div>
         </article>
 
-        <article class="card" data-expand>
+        <article class="card" data-expand data-tilt>
           <h3>部署 & 自動化</h3>
-          <p class="muted">GitHub + Vercel（之後每次 push 自動更新）。</p>
+          <p class="muted">GitHub + Vercel / Workers（之後每次 push 自動更新）。</p>
           <div class="more">
             <ul>
-              <li>Vercel Preview 部署：PR 直接產網址</li>
+              <li>Vercel Preview：PR 直接產網址</li>
+              <li>Cloudflare Workers：API 小服務 0 DB</li>
               <li>環境變數：Preview / Production 分開</li>
-              <li>自訂 domain、redirect、headers</li>
             </ul>
           </div>
         </article>
 
-        <article class="card" data-expand>
+        <article class="card" data-expand data-tilt>
           <h3>查資料 & 整理筆記</h3>
           <p class="muted">把散亂資訊變成可用的決策。</p>
           <div class="more">
@@ -118,7 +125,7 @@
           </div>
         </article>
 
-        <article class="card" data-expand>
+        <article class="card" data-expand data-tilt>
           <h3>提醒 & 排程</h3>
           <p class="muted">把重要事情變成「會準時跳出來」的提醒。</p>
           <div class="more">
@@ -132,48 +139,105 @@
       </div>
     </section>
 
-    <section id="done" class="section">
+    <section id="projects" class="section" data-reveal>
       <div class="sectionHead">
-        <h2>我們目前用我做過哪些事</h2>
-        <p class="muted">（這份內容可隨你們之後的成果持續追加）</p>
+        <h2>這段時間在 workspace 做了什麼</h2>
+        <p class="muted">把「可以跑的專案」跟「可重複的流程」都留下來。</p>
       </div>
 
-      <div class="timeline" role="list">
-        <div class="tItem" role="listitem">
-          <div class="tDot"></div>
-          <div class="tBody">
-            <div class="tTitle">OpenClaw 連線/權限整理</div>
-            <div class="tMeta">Telegram DM allowFrom / pairing 機制設定</div>
-            <div class="tText">確保只有被允許的帳號能直接私訊控制。</div>
+      <div class="projGrid" role="list">
+        <a class="proj" role="listitem" href="../erc8004-x402-example/README.md" target="_blank" rel="noreferrer" data-tilt>
+          <div class="projTop">
+            <div class="projIcon">⛓</div>
+            <div>
+              <div class="projTitle">ERC-8004 + x402 Example</div>
+              <div class="projMeta">Hardhat · contracts · tests · Next.js dApp</div>
+            </div>
           </div>
-        </div>
+          <div class="projText">身份/聲譽/驗證 registry + 最小 402 付費牆，附測試與 demo UX flow。</div>
+          <div class="chips">
+            <span class="chip">Solidity</span><span class="chip">Hardhat</span><span class="chip">Base Sepolia</span>
+          </div>
+        </a>
 
-        <div class="tItem" role="listitem">
-          <div class="tDot"></div>
-          <div class="tBody">
-            <div class="tTitle">避免 gateway 端口衝突</div>
-            <div class="tMeta">移除舊設定，保留 OpenClaw gateway（18789）</div>
-            <div class="tText">讓整個服務更穩定、避免「啟動就撞 port」。</div>
+        <a class="proj" role="listitem" href="../erc8004-x402-demo/README.md" target="_blank" rel="noreferrer" data-tilt>
+          <div class="projTop">
+            <div class="projIcon">⚡</div>
+            <div>
+              <div class="projTitle">x402 Demo (Workers)</div>
+              <div class="projMeta">Cloudflare Workers · HTTP 402 paywall</div>
+            </div>
           </div>
-        </div>
+          <div class="projText">可部署的 API demo：agent.json / domain verification / payment-gated endpoint。</div>
+          <div class="chips">
+            <span class="chip">Workers</span><span class="chip">wrangler</span><span class="chip">x402</span>
+          </div>
+        </a>
 
-        <div class="tItem" role="listitem">
-          <div class="tDot"></div>
-          <div class="tBody">
-            <div class="tTitle">建立可持續的作品集部署路線</div>
-            <div class="tMeta">GitHub → Vercel（Preview / Production）</div>
-            <div class="tText">接下來就把每個作品集專案變成可分享的網址。</div>
+        <a class="proj" role="listitem" href="../agentchefs-poc/README.md" target="_blank" rel="noreferrer" data-tilt>
+          <div class="projTop">
+            <div class="projIcon">🍜</div>
+            <div>
+              <div class="projTitle">AgentChefs POC</div>
+              <div class="projMeta">Vercel-ready · arena prototype</div>
+            </div>
           </div>
-        </div>
+          <div class="projText">「人類出題—agent 出菜—投票/小額支付」的競技場概念驗證。</div>
+          <div class="chips">
+            <span class="chip">Next.js</span><span class="chip">UI</span><span class="chip">POC</span>
+          </div>
+        </a>
+
+        <a class="proj" role="listitem" href="../jambo-worker-api/README.md" target="_blank" rel="noreferrer" data-tilt>
+          <div class="projTop">
+            <div class="projIcon">🛰</div>
+            <div>
+              <div class="projTitle">jambo-worker-api</div>
+              <div class="projMeta">Cloudflare Workers · Hono · tiny public API</div>
+            </div>
+          </div>
+          <div class="projText">一個極簡的 /health 與 echo API，支援 API key，適合當外部整合的薄層。</div>
+          <div class="chips">
+            <span class="chip">Hono</span><span class="chip">TypeScript</span><span class="chip">No DB</span>
+          </div>
+        </a>
+
+        <a class="proj" role="listitem" href="../daily_bullets" target="_blank" rel="noreferrer" data-tilt>
+          <div class="projTop">
+            <div class="projIcon">🧩</div>
+            <div>
+              <div class="projTitle">Daily Bullets</div>
+              <div class="projMeta">可持續的「對話收斂」落盤格式</div>
+            </div>
+          </div>
+          <div class="projText">把每次 session 的成果沉澱成要點池，方便日後回顧、複用與對外輸出。</div>
+          <div class="chips">
+            <span class="chip">Notes</span><span class="chip">Process</span><span class="chip">Continuity</span>
+          </div>
+        </a>
+
+        <a class="proj" role="listitem" href="../automation" target="_blank" rel="noreferrer" data-tilt>
+          <div class="projTop">
+            <div class="projIcon">🧠</div>
+            <div>
+              <div class="projTitle">Automation: Journal State</div>
+              <div class="projMeta">狀態檔 + 去重 + 可回溯策略</div>
+            </div>
+          </div>
+          <div class="projText">釐清「只處理指定 Telegram 私聊」的邊界，並用 sessionId 做可靠定位。</div>
+          <div class="chips">
+            <span class="chip">Safety</span><span class="chip">Scope</span><span class="chip">Idempotent</span>
+          </div>
+        </a>
       </div>
 
       <div class="callout">
-        <div class="calloutTitle">想更精準？</div>
-        <div class="calloutText">你只要告訴我「你希望作品集風格、技術、有哪些作品」，我會把這段 timeline 變成真實的里程碑。</div>
+        <div class="calloutTitle">你想要我把它變成真正的「作品集」嗎？</div>
+        <div class="calloutText">你給我 3 個方向：想強調的技術、想展示的成就、想對外說的故事。我就把這些 project 卡片升級成可分享的 showcase（附 demo link / 截圖 / 指令）。</div>
       </div>
     </section>
 
-    <section id="ideas" class="section">
+    <section id="ideas" class="section" data-reveal>
       <div class="sectionHead">
         <h2>還有什麼有趣的應用</h2>
         <p class="muted">按下去會直接在右下角生成一個「可執行的小任務」建議。</p>
@@ -190,7 +254,7 @@
       <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
     </section>
 
-    <section class="section" aria-label="Next steps">
+    <section class="section" aria-label="Next steps" data-reveal>
       <div class="sectionHead">
         <h2>下一步：把它丟上 Vercel</h2>
         <p class="muted">這個專案就是為了示範：靜態頁也可以很酷炫，且可 30 秒上線。</p>
@@ -200,13 +264,13 @@
         <ol>
           <li>用 GitHub 建 repo 並 push</li>
           <li>安裝 Vercel CLI（一次就好）</li>
-          <li>`vercel --prod` 直接上線</li>
+          <li><code>vercel --prod</code> 直接上線</li>
         </ol>
         <a class="btn" href="./README.md" target="_blank" rel="noreferrer">看完整部署指令</a>
       </div>
     </section>
 
-    <footer class="foot">
+    <footer class="foot" data-reveal>
       <div class="muted">Tips：按 <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>K</kbd> 開啟 Command Palette。</div>
       <div class="muted">© <span id="year"></span> OpenClaw · built as static.</div>
     </footer>
@@ -216,7 +280,7 @@
   <dialog id="cmdk" class="cmdk" aria-label="Command palette">
     <form method="dialog" class="cmdkBox">
       <div class="cmdkTop">
-        <input id="cmdInput" class="cmdInput" autocomplete="off" placeholder="輸入指令…（例如：deploy / ideas / top）" />
+        <input id="cmdInput" class="cmdInput" autocomplete="off" placeholder="輸入指令…（例如：projects / deploy / ideas / top）" />
         <button class="btn ghost" value="cancel" aria-label="Close">Esc</button>
       </div>
       <div class="cmdList" id="cmdList" role="listbox" aria-label="Commands"></div>
